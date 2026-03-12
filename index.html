@@ -1,0 +1,1305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gemini Enterprise Trial Survey | Audio/Video Services</title>
+<style>
+  :root {
+    --jw-blue: #4A6DA7;
+    --jw-blue-dark: #375380;
+    --jw-blue-light: #5E83BF;
+    --jw-steel: #2C3E50;
+    --jw-teal: #3A8A8C;
+    --jw-teal-light: #E6F5F5;
+    --jw-gold: #C9963B;
+    --jw-gold-light: #FDF6E9;
+    --jw-bg: #F7F9FC;
+    --jw-bg-secondary: #EEF2F7;
+    --jw-white: #FFFFFF;
+    --jw-card: #FFFFFF;
+    --jw-text: #2C3E50;
+    --jw-text-muted: #6B7C93;
+    --jw-border: #D4DDE8;
+    --jw-success: #3A8A8C;
+    --jw-error: #C0392B;
+    --jw-radius: 12px;
+    --jw-radius-sm: 8px;
+    --jw-shadow: 0 2px 12px rgba(44, 62, 80, 0.08);
+    --jw-shadow-lg: 0 8px 32px rgba(44, 62, 80, 0.12);
+    --jw-shadow-card: 0 1px 3px rgba(44, 62, 80, 0.06), 0 4px 16px rgba(44, 62, 80, 0.06);
+    --jw-transition: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    --jw-glow: rgba(74, 109, 167, 0.08);
+    --jw-option-hover-bg: #F0F4FA;
+    --jw-option-selected-bg: #EDF2FA;
+    --jw-header-border: #D4DDE8;
+    --jw-input-focus-ring: rgba(74, 109, 167, 0.1);
+    --jw-toggle-bg: #D4DDE8;
+    --jw-toggle-knob: #FFFFFF;
+    --jw-pattern-opacity: 0.03;
+  }
+
+  [data-theme="dark"] {
+    --jw-blue: #6B93D4;
+    --jw-blue-dark: #5A80BF;
+    --jw-blue-light: #7FA4E0;
+    --jw-steel: #E2E8F0;
+    --jw-teal: #5AABAE;
+    --jw-teal-light: #1A2E2E;
+    --jw-gold: #D4A94E;
+    --jw-gold-light: #2A2318;
+    --jw-bg: #0F1419;
+    --jw-bg-secondary: #161B22;
+    --jw-white: #1C2128;
+    --jw-card: #1C2128;
+    --jw-text: #E2E8F0;
+    --jw-text-muted: #8B9BB4;
+    --jw-border: #2D3748;
+    --jw-error: #E57373;
+    --jw-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
+    --jw-shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.4);
+    --jw-shadow-card: 0 1px 3px rgba(0, 0, 0, 0.2), 0 4px 16px rgba(0, 0, 0, 0.2);
+    --jw-glow: rgba(107, 147, 212, 0.06);
+    --jw-option-hover-bg: #252D38;
+    --jw-option-selected-bg: #1E2A3A;
+    --jw-header-border: #2D3748;
+    --jw-input-focus-ring: rgba(107, 147, 212, 0.15);
+    --jw-toggle-bg: #4A5568;
+    --jw-toggle-knob: #E2E8F0;
+    --jw-pattern-opacity: 0.02;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background: var(--jw-bg);
+    color: var(--jw-text);
+    min-height: 100vh;
+    overflow: hidden;
+    transition: background 0.3s ease, color 0.3s ease;
+  }
+
+  .survey-container {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+
+  .bg-pattern {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    opacity: var(--jw-pattern-opacity);
+    background-image:
+      radial-gradient(circle at 20% 30%, var(--jw-blue) 0%, transparent 50%),
+      radial-gradient(circle at 80% 70%, var(--jw-teal) 0%, transparent 50%),
+      radial-gradient(circle at 50% 50%, var(--jw-gold) 0%, transparent 60%);
+    background-size: 100% 100%;
+    animation: patternDrift 20s ease-in-out infinite alternate;
+  }
+
+  @keyframes patternDrift {
+    0% { transform: scale(1) translate(0, 0); }
+    100% { transform: scale(1.1) translate(-2%, 3%); }
+  }
+
+  .survey-header {
+    background: var(--jw-white);
+    border-bottom: 1px solid var(--jw-header-border);
+    padding: 14px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 10;
+    position: relative;
+    backdrop-filter: blur(12px);
+    transition: background 0.3s ease, border-color 0.3s ease;
+  }
+
+  .survey-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .survey-brand-icon {
+    width: 36px;
+    height: 36px;
+    background: linear-gradient(135deg, var(--jw-blue), var(--jw-teal));
+    border-radius: var(--jw-radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 700;
+    font-size: 14px;
+    box-shadow: 0 2px 8px rgba(74, 109, 167, 0.25);
+  }
+
+  .survey-brand-text {
+    font-size: 14px;
+    color: var(--jw-text-muted);
+    font-weight: 500;
+  }
+
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .theme-toggle {
+    position: relative;
+    width: 44px;
+    height: 24px;
+    background: var(--jw-toggle-bg);
+    border-radius: 12px;
+    cursor: pointer;
+    border: none;
+    padding: 0;
+    transition: background 0.3s ease;
+    flex-shrink: 0;
+  }
+
+  .theme-toggle::after {
+    content: '';
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 18px;
+    height: 18px;
+    background: var(--jw-toggle-knob);
+    border-radius: 50%;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+  }
+
+  [data-theme="dark"] .theme-toggle::after {
+    transform: translateX(20px);
+  }
+
+  .theme-toggle-icon {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 12px;
+    line-height: 1;
+    transition: opacity 0.2s ease;
+  }
+
+  .theme-toggle-icon.sun {
+    left: 5px;
+    opacity: 1;
+  }
+
+  .theme-toggle-icon.moon {
+    right: 5px;
+    opacity: 0.5;
+  }
+
+  [data-theme="dark"] .theme-toggle-icon.sun { opacity: 0.5; }
+  [data-theme="dark"] .theme-toggle-icon.moon { opacity: 1; }
+
+  .progress-bar {
+    height: 3px;
+    background: var(--jw-border);
+    position: relative;
+    flex-shrink: 0;
+    z-index: 10;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--jw-blue), var(--jw-teal));
+    transition: width 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    border-radius: 0 2px 2px 0;
+    box-shadow: 0 0 8px rgba(74, 109, 167, 0.3);
+  }
+
+  .progress-text {
+    font-size: 13px;
+    color: var(--jw-text-muted);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .slides-viewport {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+  }
+
+  .slide {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 32px;
+    opacity: 0;
+    transform: translateY(40px);
+    pointer-events: none;
+    transition: opacity var(--jw-transition), transform var(--jw-transition);
+  }
+
+  .slide.active {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  .slide.exit-up {
+    opacity: 0;
+    transform: translateY(-40px);
+  }
+
+  .slide-content {
+    max-width: 640px;
+    width: 100%;
+  }
+
+  .slide-card {
+    background: var(--jw-card);
+    border: 1px solid var(--jw-border);
+    border-radius: 16px;
+    padding: 40px;
+    box-shadow: var(--jw-shadow-card);
+    position: relative;
+    overflow: hidden;
+    transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .slide-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--jw-blue), var(--jw-teal), var(--jw-gold));
+    opacity: 0.8;
+  }
+
+  .welcome-card {
+    text-align: center;
+    padding: 56px 40px;
+  }
+
+  .welcome-card::before {
+    height: 4px;
+  }
+
+  .slide-number {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--jw-blue);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 20px;
+    padding: 4px 12px;
+    background: var(--jw-glow);
+    border-radius: 100px;
+  }
+
+  .slide-number .arrow { font-size: 14px; }
+
+  h1 {
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 1.35;
+    color: var(--jw-steel);
+    margin-bottom: 12px;
+    letter-spacing: -0.01em;
+  }
+
+  h1.hero {
+    font-size: 36px;
+    background: linear-gradient(135deg, var(--jw-blue), var(--jw-teal));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 16px;
+  }
+
+  .slide-description {
+    font-size: 16px;
+    line-height: 1.65;
+    color: var(--jw-text-muted);
+    margin-bottom: 28px;
+  }
+
+  .welcome-visual {
+    width: 72px;
+    height: 72px;
+    margin: 0 auto 28px;
+    border-radius: 20px;
+    background: linear-gradient(135deg, var(--jw-blue), var(--jw-teal));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    box-shadow: 0 8px 24px rgba(74, 109, 167, 0.2);
+    animation: floatIcon 3s ease-in-out infinite;
+  }
+
+  @keyframes floatIcon {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+  }
+
+  .welcome-stats {
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+    margin-top: 32px;
+    padding-top: 24px;
+    border-top: 1px solid var(--jw-border);
+  }
+
+  .welcome-stat {
+    text-align: center;
+  }
+
+  .welcome-stat-value {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--jw-steel);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .welcome-stat-label {
+    font-size: 12px;
+    color: var(--jw-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-weight: 500;
+  }
+
+  .option-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .option-btn {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px 20px;
+    border: 2px solid var(--jw-border);
+    border-radius: var(--jw-radius);
+    background: var(--jw-card);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: left;
+    font-size: 16px;
+    color: var(--jw-text);
+    width: 100%;
+  }
+
+  .option-btn:hover {
+    border-color: var(--jw-blue-light);
+    background: var(--jw-option-hover-bg);
+    transform: translateX(4px);
+    box-shadow: 0 2px 8px var(--jw-glow);
+  }
+
+  .option-btn.selected {
+    border-color: var(--jw-blue);
+    background: var(--jw-option-selected-bg);
+    box-shadow: 0 0 0 1px var(--jw-blue), 0 2px 12px var(--jw-glow);
+  }
+
+  .option-btn .key {
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    background: var(--jw-bg);
+    border: 1px solid var(--jw-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--jw-blue);
+    flex-shrink: 0;
+    transition: all 0.2s ease;
+  }
+
+  .option-btn.selected .key {
+    background: var(--jw-blue);
+    border-color: var(--jw-blue);
+    color: white;
+  }
+
+  .option-btn .check-icon {
+    width: 24px;
+    height: 24px;
+    border-radius: 6px;
+    border: 2px solid var(--jw-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: all 0.2s ease;
+    font-size: 14px;
+    color: transparent;
+  }
+
+  .option-btn.selected .check-icon {
+    background: var(--jw-blue);
+    border-color: var(--jw-blue);
+    color: white;
+  }
+
+  .text-input {
+    width: 100%;
+    padding: 16px 20px;
+    border: 2px solid var(--jw-border);
+    border-radius: var(--jw-radius);
+    font-size: 16px;
+    font-family: inherit;
+    color: var(--jw-text);
+    background: var(--jw-card);
+    resize: vertical;
+    min-height: 120px;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.3s ease;
+  }
+
+  .text-input:focus {
+    outline: none;
+    border-color: var(--jw-blue);
+    box-shadow: 0 0 0 3px var(--jw-input-focus-ring);
+  }
+
+  .text-input::placeholder {
+    color: var(--jw-text-muted);
+    opacity: 0.6;
+  }
+
+  .name-input {
+    min-height: auto;
+    height: auto;
+    padding: 14px 20px;
+  }
+
+  .rating-grid {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .rating-btn {
+    width: 56px;
+    height: 56px;
+    border: 2px solid var(--jw-border);
+    border-radius: var(--jw-radius);
+    background: var(--jw-card);
+    cursor: pointer;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--jw-text-muted);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+  }
+
+  .rating-btn:hover {
+    border-color: var(--jw-blue-light);
+    color: var(--jw-blue);
+    transform: scale(1.08);
+    box-shadow: 0 4px 12px var(--jw-glow);
+  }
+
+  .rating-btn.selected {
+    border-color: var(--jw-blue);
+    background: var(--jw-blue);
+    color: white;
+    box-shadow: 0 4px 12px rgba(74, 109, 167, 0.3);
+    transform: scale(1.05);
+  }
+
+  .rating-labels {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    font-size: 13px;
+    color: var(--jw-text-muted);
+    font-weight: 500;
+  }
+
+  .nav-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 28px;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 28px;
+    border-radius: var(--jw-radius-sm);
+    font-size: 16px;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: none;
+  }
+
+  .btn-primary {
+    background: linear-gradient(135deg, var(--jw-blue), var(--jw-blue-dark));
+    color: white;
+    box-shadow: 0 2px 8px rgba(74, 109, 167, 0.25);
+  }
+
+  .btn-primary:hover {
+    box-shadow: 0 4px 16px rgba(74, 109, 167, 0.35);
+    transform: translateY(-1px);
+  }
+
+  .btn-primary:active { transform: translateY(0); }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--jw-text-muted);
+    border: 1px solid var(--jw-border);
+  }
+
+  .btn-secondary:hover { background: var(--jw-bg); color: var(--jw-text); }
+
+  .btn-large {
+    padding: 18px 40px;
+    font-size: 18px;
+    border-radius: var(--jw-radius);
+  }
+
+  .hint {
+    font-size: 13px;
+    color: var(--jw-text-muted);
+    margin-top: 12px;
+  }
+
+  .hint kbd {
+    display: inline-block;
+    padding: 2px 8px;
+    background: var(--jw-bg);
+    border: 1px solid var(--jw-border);
+    border-radius: 4px;
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--jw-text-muted);
+    transition: background 0.3s ease, border-color 0.3s ease;
+  }
+
+  .welcome-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background: var(--jw-gold-light);
+    border: 1px solid rgba(201, 150, 59, 0.2);
+    border-radius: 100px;
+    font-size: 14px;
+    color: var(--jw-gold);
+    font-weight: 600;
+    margin-bottom: 20px;
+  }
+
+  .thankyou-card {
+    text-align: center;
+    padding: 56px 40px;
+  }
+
+  .thankyou-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--jw-teal), var(--jw-blue));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 36px;
+    margin: 0 auto 24px;
+    box-shadow: 0 8px 24px rgba(58, 138, 140, 0.2);
+    color: white;
+    animation: scaleIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+
+  @keyframes scaleIn {
+    0% { transform: scale(0); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+  }
+
+  .required-star { color: var(--jw-error); }
+
+  .feature-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+
+  .validation-msg {
+    font-size: 14px;
+    color: var(--jw-error);
+    margin-top: 8px;
+    display: none;
+    animation: shake 0.4s ease;
+  }
+
+  .validation-msg.show { display: block; }
+
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    20% { transform: translateX(-4px); }
+    40% { transform: translateX(4px); }
+    60% { transform: translateX(-3px); }
+    80% { transform: translateX(3px); }
+  }
+
+  .slide-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 16px;
+    padding-top: 12px;
+  }
+
+  .keyboard-hint {
+    font-size: 12px;
+    color: var(--jw-text-muted);
+    opacity: 0.7;
+  }
+
+  @media (max-width: 680px) {
+    h1 { font-size: 24px; }
+    h1.hero { font-size: 28px; }
+    .slide { padding: 16px; }
+    .slide-card { padding: 28px 20px; }
+    .welcome-card { padding: 36px 20px; }
+    .slide-description { font-size: 15px; }
+    .rating-btn { width: 48px; height: 48px; font-size: 18px; }
+    .survey-header { padding: 12px 16px; }
+    .welcome-stats { gap: 20px; }
+    .welcome-stats { flex-wrap: wrap; }
+  }
+
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+</style>
+</head>
+<body>
+
+<div class="bg-pattern"></div>
+
+<div class="survey-container" id="app">
+  <header class="survey-header">
+    <div class="survey-brand">
+      <div class="survey-brand-icon">AV</div>
+      <span class="survey-brand-text">Audio/Video Services &middot; Gemini Trial Feedback</span>
+    </div>
+    <div class="header-actions">
+      <span class="progress-text" id="progressText"></span>
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode" title="Toggle dark mode">
+        <span class="theme-toggle-icon sun">&#9788;</span>
+        <span class="theme-toggle-icon moon">&#9790;</span>
+      </button>
+    </div>
+  </header>
+  <div class="progress-bar">
+    <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+  </div>
+
+  <div class="slides-viewport" id="slidesViewport"></div>
+</div>
+
+<script>
+(function() {
+  'use strict';
+
+  // ── Theme ──
+  function getPreferredTheme() {
+    const stored = localStorage.getItem('survey-theme');
+    if (stored) return stored;
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  }
+
+  function applyTheme(theme) {
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('survey-theme', theme);
+  }
+
+  applyTheme(getPreferredTheme());
+
+  document.getElementById('themeToggle').addEventListener('click', () => {
+    const current = document.documentElement.getAttribute('data-theme');
+    applyTheme(current === 'dark' ? 'light' : 'dark');
+  });
+
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+    if (!localStorage.getItem('survey-theme')) {
+      applyTheme(e.matches ? 'dark' : 'light');
+    }
+  });
+
+  // ── Survey Configuration ──
+  const SURVEY_CONFIG = {
+    spSiteUrl: '/sites/whq-cd-gemini-ai',
+    spListName: 'GeminiTrialSurveyResults',
+  };
+
+  // ── State ──
+  let currentSlide = 0;
+  let answers = {};
+  let branch = 'user';
+  let isTransitioning = false;
+
+  // ── Slide Definitions ──
+  function getSlides() {
+    const base = [
+      {
+        id: 'welcome',
+        type: 'welcome',
+        heading: 'Tell Us About Your Gemini Experience',
+        description: 'This short survey helps Audio/Video Services understand how the Google Gemini Enterprise trial is going. Whether you used it daily or never got around to it, we want to hear from you. Your responses will help us get the most use out of these tools.',
+        badge: 'Gemini Enterprise Trial',
+        buttonText: 'Let\'s Get Started',
+      },
+      {
+        id: 'name',
+        type: 'text-short',
+        number: 1,
+        heading: 'First, who\'s sharing their experience today?',
+        description: 'Feel free to share your name, or leave this blank to stay anonymous. Either way, your feedback is valued.',
+        placeholder: 'Your name (optional)',
+        field: 'respondentName',
+        required: false,
+      },
+      {
+        id: 'didUse',
+        type: 'single-select',
+        number: 2,
+        heading: 'Did you use Google Gemini during the trial period?',
+        description: 'Be honest \u2014 there\'s no wrong answer here. We\'re just as interested in why some people didn\'t use it as how others did.',
+        field: 'didUseGemini',
+        required: true,
+        options: [
+          { key: 'A', value: 'yes', label: 'Yes, I used it' },
+          { key: 'B', value: 'no', label: 'No, I didn\'t end up using it' },
+        ],
+      },
+    ];
+
+    const nonUserBranch = [
+      {
+        id: 'whyNot',
+        type: 'multi-select',
+        number: 3,
+        heading: 'What kept you from trying Gemini?',
+        description: 'Select all that apply. Understanding the barriers helps us improve for everyone.',
+        field: 'reasonsNotUsed',
+        required: true,
+        options: [
+          { value: 'no-time', label: 'I didn\'t have time to explore it' },
+          { value: 'no-need', label: 'I didn\'t see how it applied to my work' },
+          { value: 'unsure-how', label: 'I wasn\'t sure how to get started' },
+          { value: 'access-issues', label: 'I had trouble accessing it' },
+          { value: 'prefer-existing', label: 'I prefer the tools I already use' },
+          { value: 'uncomfortable', label: 'I\'m not comfortable with AI tools' },
+          { value: 'forgot', label: 'I meant to but it slipped my mind' },
+          { value: 'other', label: 'Other reason' },
+        ],
+      },
+      {
+        id: 'whatWouldHelp',
+        type: 'textarea',
+        number: 4,
+        heading: 'What would have made it easier for you to try Gemini?',
+        description: 'More training? A specific use case for your role? Anything you can share helps us plan better.',
+        placeholder: 'Share your thoughts here...',
+        field: 'whatWouldHelp',
+        required: false,
+      },
+      {
+        id: 'openToTrying',
+        type: 'single-select',
+        number: 5,
+        heading: 'Would you be open to trying Gemini if given more support or guidance?',
+        field: 'openToTrying',
+        required: true,
+        options: [
+          { key: 'A', value: 'yes-definitely', label: 'Yes, definitely' },
+          { key: 'B', value: 'yes-maybe', label: 'Maybe, with the right support' },
+          { key: 'C', value: 'not-sure', label: 'I\'m not sure' },
+          { key: 'D', value: 'no', label: 'Probably not' },
+        ],
+      },
+    ];
+
+    const userBranch = [
+      {
+        id: 'frequency',
+        type: 'single-select',
+        number: 3,
+        heading: 'How often did you use Gemini during the trial?',
+        field: 'usageFrequency',
+        required: true,
+        options: [
+          { key: 'A', value: 'daily', label: 'Daily or almost daily' },
+          { key: 'B', value: 'few-per-week', label: 'A few times a week' },
+          { key: 'C', value: 'once-per-week', label: 'About once a week' },
+          { key: 'D', value: 'few-times', label: 'Just a few times total' },
+          { key: 'E', value: 'once', label: 'I tried it once' },
+        ],
+      },
+      {
+        id: 'features',
+        type: 'multi-select',
+        number: 4,
+        heading: 'Which Gemini features did you use?',
+        description: 'Select all that you tried, even if just briefly.',
+        field: 'featuresUsed',
+        required: true,
+        options: [
+          { value: 'chat', label: 'Chat conversations (general prompting)' },
+          { value: 'deep-research', label: 'Deep Research' },
+          { value: 'notebooklm', label: 'NotebookLM (research notebooks)' },
+          { value: 'image-gen', label: 'Image generation' },
+          { value: 'video-gen', label: 'Video generation (Veo)' },
+          { value: 'file-analysis', label: 'File upload & analysis' },
+          { value: 'google-search', label: 'Google Search connector' },
+        ],
+      },
+      {
+        id: 'usedFor',
+        type: 'textarea',
+        number: 5,
+        heading: 'What work tasks did you use Gemini for?',
+        description: 'Describe what you tried to accomplish. Specific examples help us understand real use cases in AV Services.',
+        placeholder: 'For example: \"I used it to draft project summaries\" or \"I uploaded meeting notes to NotebookLM to find key decisions\"...',
+        field: 'workTasks',
+        required: true,
+      },
+      {
+        id: 'liked',
+        type: 'textarea',
+        number: 6,
+        heading: 'What did you like most about Gemini?',
+        description: 'What worked well? What surprised you? What would you want to keep?',
+        placeholder: 'Share what stood out to you...',
+        field: 'whatLiked',
+        required: false,
+      },
+      {
+        id: 'disliked',
+        type: 'textarea',
+        number: 7,
+        heading: 'What didn\'t work well or frustrated you?',
+        description: 'No tool is perfect. Your honest feedback helps us advocate for improvements and better training.',
+        placeholder: 'What was confusing, slow, inaccurate, or just not useful...',
+        field: 'whatDisliked',
+        required: false,
+      },
+      {
+        id: 'rating',
+        type: 'rating',
+        number: 8,
+        heading: 'Overall, how would you rate your Gemini experience?',
+        description: '1 being very poor, 10 being excellent.',
+        field: 'overallRating',
+        required: true,
+        min: 1,
+        max: 10,
+      },
+      {
+        id: 'continueUsing',
+        type: 'single-select',
+        number: 9,
+        heading: 'Would you want to continue using Gemini after the trial?',
+        field: 'continueUsing',
+        required: true,
+        options: [
+          { key: 'A', value: 'yes-essential', label: 'Yes, it\'s become essential to my work' },
+          { key: 'B', value: 'yes-helpful', label: 'Yes, it\'s helpful but not critical' },
+          { key: 'C', value: 'maybe', label: 'Maybe, with improvements' },
+          { key: 'D', value: 'indifferent', label: 'I could take it or leave it' },
+          { key: 'E', value: 'no', label: 'No, I don\'t think I need it' },
+        ],
+      },
+    ];
+
+    const closing = [
+      {
+        id: 'additionalThoughts',
+        type: 'textarea',
+        number: branch === 'nonuser' ? 6 : 10,
+        heading: 'Anything else you\'d like to share?',
+        description: 'Any other thoughts, suggestions, or ideas about AI tools for our department.',
+        placeholder: 'Optional \u2014 feel free to leave blank or share your heart...',
+        field: 'additionalThoughts',
+        required: false,
+      },
+      {
+        id: 'thankyou',
+        type: 'thankyou',
+        heading: 'Thank you for sharing your experience!',
+        description: 'Your feedback goes directly toward helping Audio/Video Services make informed decisions about tools like Gemini. We appreciate you taking the time.',
+      },
+    ];
+
+    const mid = branch === 'nonuser' ? nonUserBranch : userBranch;
+    return [...base, ...mid, ...closing];
+  }
+
+  let slides = getSlides();
+
+  // ── Rendering ──
+  function renderSlide(slide, index) {
+    const el = document.createElement('div');
+    el.className = 'slide' + (index === currentSlide ? ' active' : '');
+    el.dataset.index = index;
+
+    let inner = '<div class="slide-content">';
+
+    if (slide.type === 'welcome') {
+      inner += '<div class="slide-card welcome-card">';
+      inner += '<div class="welcome-visual">&#9881;</div>';
+      inner += `<div class="welcome-badge">&#9733; ${slide.badge}</div>`;
+      inner += `<h1 class="hero">${slide.heading}</h1>`;
+      inner += `<p class="slide-description">${slide.description}</p>`;
+      inner += `<button class="btn btn-primary btn-large" onclick="Survey.next()">${slide.buttonText} &rarr;</button>`;
+      inner += '<div class="welcome-stats">';
+      inner += '<div class="welcome-stat"><div class="welcome-stat-value">~5 min</div><div class="welcome-stat-label">to complete</div></div>';
+      inner += '<div class="welcome-stat"><div class="welcome-stat-value">10</div><div class="welcome-stat-label">questions max</div></div>';
+      inner += '<div class="welcome-stat"><div class="welcome-stat-value">100%</div><div class="welcome-stat-label">anonymous-friendly</div></div>';
+      inner += '</div>';
+      inner += '</div>';
+
+    } else if (slide.type === 'thankyou') {
+      inner += '<div class="slide-card thankyou-card">';
+      inner += '<div class="thankyou-icon">&#10003;</div>';
+      inner += `<h1>${slide.heading}</h1>`;
+      inner += `<p class="slide-description">${slide.description}</p>`;
+      inner += '</div>';
+
+    } else {
+      inner += '<div class="slide-card">';
+      if (slide.number) {
+        inner += `<div class="slide-number"><span class="arrow">&rarr;</span> Question ${slide.number}</div>`;
+      }
+      inner += `<h1>${slide.heading}${slide.required ? ' <span class="required-star">*</span>' : ''}</h1>`;
+      if (slide.description) {
+        inner += `<p class="slide-description">${slide.description}</p>`;
+      }
+
+      if (slide.type === 'single-select') {
+        inner += '<div class="option-grid">';
+        slide.options.forEach(opt => {
+          const selected = answers[slide.field] === opt.value ? ' selected' : '';
+          inner += `<button class="option-btn${selected}" data-field="${slide.field}" data-value="${opt.value}" onclick="Survey.selectSingle(this)">
+            <span class="key">${opt.key}</span>
+            <span>${opt.label}</span>
+          </button>`;
+        });
+        inner += '</div>';
+        inner += `<div class="validation-msg" id="val-${slide.id}">Please select an option to continue.</div>`;
+
+      } else if (slide.type === 'multi-select') {
+        inner += '<div class="option-grid">';
+        const current = answers[slide.field] || [];
+        slide.options.forEach(opt => {
+          const selected = current.includes(opt.value) ? ' selected' : '';
+          inner += `<button class="option-btn${selected}" data-field="${slide.field}" data-value="${opt.value}" onclick="Survey.toggleMulti(this)">
+            <span class="check-icon">&#10003;</span>
+            <span>${opt.label}</span>
+          </button>`;
+        });
+        inner += '</div>';
+        inner += `<p class="hint">Select all that apply, then press <kbd>OK</kbd> to continue.</p>`;
+        inner += `<div class="validation-msg" id="val-${slide.id}">Please select at least one option.</div>`;
+        inner += `<div class="nav-row">
+          <button class="btn btn-primary" onclick="Survey.next()">OK &check;</button>
+        </div>`;
+
+      } else if (slide.type === 'textarea') {
+        const val = answers[slide.field] || '';
+        inner += `<textarea class="text-input" data-field="${slide.field}" placeholder="${slide.placeholder || ''}" oninput="Survey.textInput(this)">${val}</textarea>`;
+        if (slide.required) {
+          inner += `<div class="validation-msg" id="val-${slide.id}">Please share your thoughts to continue.</div>`;
+        }
+        inner += `<div class="nav-row">
+          <button class="btn btn-primary" onclick="Survey.next()">OK &check;</button>
+          <p class="hint">or press <kbd>Ctrl</kbd>+<kbd>Enter</kbd></p>
+        </div>`;
+
+      } else if (slide.type === 'text-short') {
+        const val = answers[slide.field] || '';
+        inner += `<input type="text" class="text-input name-input" data-field="${slide.field}" placeholder="${slide.placeholder || ''}" value="${val}" oninput="Survey.textInput(this)" onkeydown="if(event.key==='Enter')Survey.next()">`;
+        inner += `<div class="nav-row">
+          <button class="btn btn-primary" onclick="Survey.next()">OK &check;</button>
+          <p class="hint">or press <kbd>Enter</kbd></p>
+        </div>`;
+
+      } else if (slide.type === 'rating') {
+        inner += '<div class="rating-grid">';
+        for (let i = slide.min; i <= slide.max; i++) {
+          const selected = answers[slide.field] === i ? ' selected' : '';
+          inner += `<button class="rating-btn${selected}" data-field="${slide.field}" data-value="${i}" onclick="Survey.selectRating(this)">${i}</button>`;
+        }
+        inner += '</div>';
+        inner += '<div class="rating-labels"><span>Very poor</span><span>Excellent</span></div>';
+        inner += `<div class="validation-msg" id="val-${slide.id}">Please select a rating.</div>`;
+      }
+
+      inner += '</div>';
+    }
+
+    inner += '</div>';
+    el.innerHTML = inner;
+    return el;
+  }
+
+  function renderAll() {
+    const viewport = document.getElementById('slidesViewport');
+    viewport.innerHTML = '';
+    slides.forEach((slide, i) => {
+      viewport.appendChild(renderSlide(slide, i));
+    });
+    updateProgress();
+  }
+
+  function updateProgress() {
+    const total = slides.length - 1;
+    const pct = Math.min(100, Math.round((currentSlide / total) * 100));
+    document.getElementById('progressFill').style.width = pct + '%';
+    const current = slides[currentSlide];
+    if (current.type === 'welcome') {
+      document.getElementById('progressText').textContent = '';
+    } else if (current.type === 'thankyou') {
+      document.getElementById('progressText').textContent = 'Complete!';
+    } else {
+      document.getElementById('progressText').textContent = `${currentSlide} of ${total}`;
+    }
+  }
+
+  // ── Navigation ──
+  function goTo(newIndex) {
+    if (isTransitioning || newIndex < 0 || newIndex >= slides.length) return;
+    isTransitioning = true;
+
+    const allSlides = document.querySelectorAll('.slide');
+    const oldEl = allSlides[currentSlide];
+    const direction = newIndex > currentSlide ? 'exit-up' : '';
+
+    if (oldEl) {
+      oldEl.classList.remove('active');
+      if (direction) oldEl.classList.add(direction);
+    }
+
+    currentSlide = newIndex;
+    slides = getSlides();
+
+    const viewport = document.getElementById('slidesViewport');
+    viewport.innerHTML = '';
+    slides.forEach((slide, i) => {
+      const el = renderSlide(slide, i);
+      if (i === currentSlide) {
+        el.classList.remove('active');
+        viewport.appendChild(el);
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => { el.classList.add('active'); });
+        });
+      } else {
+        viewport.appendChild(el);
+      }
+    });
+
+    updateProgress();
+    setTimeout(() => { isTransitioning = false; }, 500);
+
+    const activeInput = document.querySelector('.slide.active textarea, .slide.active input[type="text"]');
+    if (activeInput) setTimeout(() => activeInput.focus(), 500);
+  }
+
+  function validate(slide) {
+    if (!slide.required) return true;
+
+    if (slide.type === 'single-select' || slide.type === 'rating') {
+      return answers[slide.field] !== undefined;
+    }
+    if (slide.type === 'multi-select') {
+      return (answers[slide.field] || []).length > 0;
+    }
+    if (slide.type === 'textarea') {
+      return (answers[slide.field] || '').trim().length > 0;
+    }
+    return true;
+  }
+
+  function showValidation(slideId) {
+    const el = document.getElementById('val-' + slideId);
+    if (el) el.classList.add('show');
+    setTimeout(() => { if (el) el.classList.remove('show'); }, 3000);
+  }
+
+  // ── Submission ──
+  function submitToSharePoint() {
+    const payload = {
+      ...answers,
+      branch: branch,
+      featuresUsed: (answers.featuresUsed || []).join('; '),
+      reasonsNotUsed: (answers.reasonsNotUsed || []).join('; '),
+      submittedAt: new Date().toISOString(),
+    };
+
+    console.log('[Survey] Submitting payload:', payload);
+
+    const listUrl = `${SURVEY_CONFIG.spSiteUrl}/_api/web/lists/getbytitle('${SURVEY_CONFIG.spListName}')/items`;
+
+    const spPayload = {
+      '__metadata': { 'type': `SP.Data.${SURVEY_CONFIG.spListName.replace(/\s/g, '_x0020_')}ListItem` },
+      'Title': payload.respondentName || 'Anonymous',
+      'DidUseGemini': payload.didUseGemini || '',
+      'Branch': payload.branch || '',
+      'UsageFrequency': payload.usageFrequency || '',
+      'FeaturesUsed': payload.featuresUsed || '',
+      'WorkTasks': payload.workTasks || '',
+      'WhatLiked': payload.whatLiked || '',
+      'WhatDisliked': payload.whatDisliked || '',
+      'OverallRating': payload.overallRating || null,
+      'ContinueUsing': payload.continueUsing || '',
+      'ReasonsNotUsed': payload.reasonsNotUsed || '',
+      'WhatWouldHelp': payload.whatWouldHelp || '',
+      'OpenToTrying': payload.openToTrying || '',
+      'AdditionalThoughts': payload.additionalThoughts || '',
+      'SubmittedAt': payload.submittedAt,
+    };
+
+    if (typeof _spPageContextInfo !== 'undefined' || document.cookie.includes('FedAuth')) {
+      const digestEl = document.getElementById('__REQUESTDIGEST');
+      const digestValue = digestEl ? digestEl.value : '';
+
+      fetch(listUrl, {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json;odata=verbose',
+          'Content-Type': 'application/json;odata=verbose',
+          'X-RequestDigest': digestValue,
+        },
+        body: JSON.stringify(spPayload),
+        credentials: 'same-origin',
+      })
+      .then(r => {
+        if (!r.ok) throw new Error('SP response ' + r.status);
+        console.log('[Survey] Saved to SharePoint List.');
+      })
+      .catch(err => {
+        console.warn('[Survey] SharePoint save failed, logging to console.', err);
+        console.table(payload);
+      });
+    } else {
+      console.log('[Survey] Not in SharePoint context. Data logged to console:');
+      console.table(payload);
+    }
+  }
+
+  // ── Public API ──
+  window.Survey = {
+    selectSingle(btn) {
+      const field = btn.dataset.field;
+      const value = btn.dataset.value;
+      answers[field] = value;
+
+      btn.closest('.option-grid').querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+
+      if (field === 'didUseGemini') {
+        branch = value === 'yes' ? 'user' : 'nonuser';
+      }
+
+      setTimeout(() => this.next(), 350);
+    },
+
+    toggleMulti(btn) {
+      const field = btn.dataset.field;
+      const value = btn.dataset.value;
+      if (!answers[field]) answers[field] = [];
+
+      const idx = answers[field].indexOf(value);
+      if (idx > -1) {
+        answers[field].splice(idx, 1);
+        btn.classList.remove('selected');
+      } else {
+        answers[field].push(value);
+        btn.classList.add('selected');
+      }
+    },
+
+    selectRating(btn) {
+      const field = btn.dataset.field;
+      const value = parseInt(btn.dataset.value);
+      answers[field] = value;
+
+      btn.closest('.rating-grid').querySelectorAll('.rating-btn').forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+
+      setTimeout(() => this.next(), 350);
+    },
+
+    textInput(el) {
+      answers[el.dataset.field] = el.value;
+    },
+
+    next() {
+      const slide = slides[currentSlide];
+
+      if (slide.type !== 'welcome' && slide.type !== 'thankyou') {
+        if (!validate(slide)) {
+          showValidation(slide.id);
+          return;
+        }
+      }
+
+      const nextIndex = currentSlide + 1;
+      if (nextIndex >= slides.length) return;
+
+      if (slides[nextIndex].type === 'thankyou') {
+        submitToSharePoint();
+      }
+
+      goTo(nextIndex);
+    },
+
+    prev() {
+      if (currentSlide > 0) goTo(currentSlide - 1);
+    },
+  };
+
+  // ── Keyboard Navigation ──
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Enter' && e.ctrlKey) {
+      Survey.next();
+    }
+  });
+
+  // ── Initialize ──
+  renderAll();
+})();
+</script>
+</body>
+</html>
