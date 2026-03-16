@@ -758,10 +758,7 @@
   });
 
   // ── Survey Configuration ──
-  const SURVEY_CONFIG = {
-    spSiteUrl: '/sites/whq-cd-gemini-ai',
-    spListName: 'GeminiTrialSurveyResults',
-  };
+  const API_ENDPOINT = '/api/submit';
 
   // ── State ──
   let currentSlide = 0;
@@ -1158,64 +1155,37 @@
   }
 
   // ── Submission ──
-  function submitToSharePoint() {
+  function submitSurvey() {
     const payload = {
-      ...answers,
+      respondentName: answers.respondentName || '',
+      didUseGemini: answers.didUseGemini || '',
       branch: branch,
+      usageFrequency: answers.usageFrequency || '',
       featuresUsed: (answers.featuresUsed || []).join('; '),
+      workTasks: answers.workTasks || '',
+      whatLiked: answers.whatLiked || '',
+      whatDisliked: answers.whatDisliked || '',
+      overallRating: answers.overallRating || null,
+      continueUsing: answers.continueUsing || '',
       reasonsNotUsed: (answers.reasonsNotUsed || []).join('; '),
+      whatWouldHelp: answers.whatWouldHelp || '',
+      openToTrying: answers.openToTrying || '',
+      additionalThoughts: answers.additionalThoughts || '',
       submittedAt: new Date().toISOString(),
     };
 
-    console.log('[Survey] Submitting payload:', payload);
-
-    const listUrl = `${SURVEY_CONFIG.spSiteUrl}/_api/web/lists/getbytitle('${SURVEY_CONFIG.spListName}')/items`;
-
-    const spPayload = {
-      '__metadata': { 'type': `SP.Data.${SURVEY_CONFIG.spListName.replace(/\s/g, '_x0020_')}ListItem` },
-      'Title': payload.respondentName || 'Anonymous',
-      'DidUseGemini': payload.didUseGemini || '',
-      'Branch': payload.branch || '',
-      'UsageFrequency': payload.usageFrequency || '',
-      'FeaturesUsed': payload.featuresUsed || '',
-      'WorkTasks': payload.workTasks || '',
-      'WhatLiked': payload.whatLiked || '',
-      'WhatDisliked': payload.whatDisliked || '',
-      'OverallRating': payload.overallRating || null,
-      'ContinueUsing': payload.continueUsing || '',
-      'ReasonsNotUsed': payload.reasonsNotUsed || '',
-      'WhatWouldHelp': payload.whatWouldHelp || '',
-      'OpenToTrying': payload.openToTrying || '',
-      'AdditionalThoughts': payload.additionalThoughts || '',
-      'SubmittedAt': payload.submittedAt,
-    };
-
-    if (typeof _spPageContextInfo !== 'undefined' || document.cookie.includes('FedAuth')) {
-      const digestEl = document.getElementById('__REQUESTDIGEST');
-      const digestValue = digestEl ? digestEl.value : '';
-
-      fetch(listUrl, {
-        method: 'POST',
-        headers: {
-          'Accept': 'application/json;odata=verbose',
-          'Content-Type': 'application/json;odata=verbose',
-          'X-RequestDigest': digestValue,
-        },
-        body: JSON.stringify(spPayload),
-        credentials: 'same-origin',
-      })
-      .then(r => {
-        if (!r.ok) throw new Error('SP response ' + r.status);
-        console.log('[Survey] Saved to SharePoint List.');
-      })
-      .catch(err => {
-        console.warn('[Survey] SharePoint save failed, logging to console.', err);
-        console.table(payload);
-      });
-    } else {
-      console.log('[Survey] Not in SharePoint context. Data logged to console:');
-      console.table(payload);
-    }
+    fetch(API_ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    })
+    .then(r => {
+      if (!r.ok) throw new Error('API response ' + r.status);
+      console.log('[Survey] Response saved successfully.');
+    })
+    .catch(err => {
+      console.warn('[Survey] Submission failed:', err);
+    });
   }
 
   // ── Public API ──
@@ -1279,7 +1249,7 @@
       if (nextIndex >= slides.length) return;
 
       if (slides[nextIndex].type === 'thankyou') {
-        submitToSharePoint();
+        submitSurvey();
       }
 
       goTo(nextIndex);
