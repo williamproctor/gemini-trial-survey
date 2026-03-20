@@ -3,7 +3,8 @@
   "outputDirectory": "public",
   "rewrites": [
     { "source": "/api/submit", "destination": "/api/submit" },
-    { "source": "/gemini", "destination": "/index.html" }
+    { "source": "/gemini", "destination": "/index.html" },
+    { "source": "/results", "destination": "/results.html" }
   ],
   "redirects": [
     { "source": "/", "destination": "/gemini", "permanent": false }

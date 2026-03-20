@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gemini Enterprise Trial Report | Audio/Video Services</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --dispatch-blue: #4a6da7;
+  --dispatch-blue-dark: #3a5a8f;
+  --dispatch-blue-light: #6b8ec4;
+  --dispatch-blue-pale: #e8eef6;
+  --dispatch-blue-ghost: #f4f7fb;
+  --dispatch-blue-10: rgba(74, 109, 167, 0.10);
+  --dispatch-blue-05: rgba(74, 109, 167, 0.05);
+  --parchment: #f5f0e8;
+  --parchment-warm: #ede6d8;
+  --parchment-light: #faf8f3;
+  --parchment-dark: #ddd5c4;
+  --ink: #1a1a2e;
+  --ink-soft: #2d2d42;
+  --ink-muted: #6b6b80;
+  --ink-faint: #9e9eb0;
+  --white: #ffffff;
+  --success: #3a9e6e;
+  --warning: #d4953a;
+  --error: #c74b4b;
+  --font-display: 'Plus Jakarta Sans', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-display);
+  background: var(--parchment-light);
+  color: var(--ink);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
+
+/* ── NAV ── */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: rgba(250, 248, 243, 0.88);
+  backdrop-filter: blur(20px) saturate(1.3);
+  border-bottom: 1px solid var(--parchment-dark);
+  padding: 0 32px;
+}
+.nav-inner {
+  max-width: 1120px; margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between;
+  height: 56px;
+}
+.nav-logo {
+  font-weight: 800; font-size: 14px; letter-spacing: -0.3px;
+  color: var(--dispatch-blue);
+}
+.nav-logo span { color: var(--ink-muted); font-weight: 400; }
+.nav-links { display: flex; gap: 20px; }
+.nav-links a {
+  font-size: 11px; font-weight: 500; color: var(--ink-muted);
+  text-decoration: none; letter-spacing: 0.5px; text-transform: uppercase;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--dispatch-blue); }
+
+/* ── HERO ── */
+.hero {
+  padding: 140px 32px 96px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  background: var(--dispatch-blue);
+  color: var(--white);
+}
+.hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 600px 400px at 20% 80%, rgba(245,240,232,0.08), transparent),
+    radial-gradient(ellipse 500px 300px at 80% 20%, rgba(255,255,255,0.05), transparent);
+  pointer-events: none;
+}
+.hero .container { position: relative; }
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-family: var(--font-mono); font-size: 11px; font-weight: 400;
+  letter-spacing: 2px; text-transform: uppercase;
+  color: rgba(255,255,255,0.6); margin-bottom: 24px;
+}
+.hero-badge::before { content: ''; width: 20px; height: 1px; background: rgba(255,255,255,0.3); }
+.hero h1 {
+  font-size: clamp(34px, 5vw, 58px); font-weight: 800;
+  letter-spacing: -2px; line-height: 1.05;
+  max-width: 700px; margin: 0 auto 20px;
+}
+.hero h1 em { font-style: italic; font-weight: 300; opacity: 0.85; }
+.hero-sub {
+  font-size: 17px; font-weight: 400; color: rgba(255,255,255,0.65);
+  max-width: 540px; margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* ── STAT STRIP ── */
+.stat-strip {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  max-width: 1120px; margin: -48px auto 0; padding: 0 32px;
+  position: relative; z-index: 2;
+}
+.stat-card {
+  background: var(--white);
+  border: 1px solid var(--parchment-dark);
+  padding: 28px 24px;
+  text-align: center;
+}
+.stat-card:first-child { border-radius: 16px 0 0 16px; }
+.stat-card:last-child { border-radius: 0 16px 16px 0; }
+.stat-card:not(:last-child) { border-right: none; }
+.stat-value {
+  font-size: 40px; font-weight: 800; letter-spacing: -2px;
+  color: var(--dispatch-blue); line-height: 1;
+  margin-bottom: 6px;
+}
+.stat-label {
+  font-family: var(--font-mono); font-size: 10px; font-weight: 500;
+  letter-spacing: 1.5px; text-transform: uppercase;
+  color: var(--ink-faint);
+}
+
+/* ── SECTIONS ── */
+.container { max-width: 1120px; margin: 0 auto; }
+.section { padding: 96px 32px; }
+.section-label {
+  font-family: var(--font-mono); font-size: 11px; font-weight: 500;
+  letter-spacing: 2px; text-transform: uppercase;
+  color: var(--dispatch-blue); margin-bottom: 12px;
+  display: flex; align-items: center; gap: 8px;
+}
+.section-label::before {
+  content: ''; width: 16px; height: 2px;
+  background: var(--dispatch-blue); border-radius: 1px;
+}
+.section-title {
+  font-size: clamp(26px, 3.5vw, 38px); font-weight: 800;
+  letter-spacing: -1.5px; line-height: 1.1;
+  margin-bottom: 12px;
+}
+.section-title em { color: var(--dispatch-blue); font-style: normal; }
+.section-desc {
+  font-size: 15px; color: var(--ink-muted); max-width: 560px;
+  line-height: 1.65; margin-bottom: 40px;
+}
+
+/* ── CARDS ── */
+.card {
+  background: var(--white);
+  border: 1px solid var(--parchment-dark);
+  border-radius: 16px;
+  padding: 28px;
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.3s;
+}
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(74, 109, 167, 0.08);
+}
+
+/* ── BAR CHARTS ── */
+.bar-chart-h { margin-top: 8px; }
+.bar-row {
+  display: flex; align-items: center; gap: 16px;
+  margin-bottom: 10px;
+}
+.bar-label {
+  font-size: 13px; font-weight: 500;
+  width: 160px; flex-shrink: 0; text-align: right;
+  color: var(--ink-soft);
+}
+.bar-track {
+  flex: 1; height: 28px;
+  background: var(--parchment);
+  border-radius: 6px; overflow: hidden;
+}
+.bar-fill {
+  height: 100%; border-radius: 6px;
+  background: var(--dispatch-blue);
+  display: flex; align-items: center; padding-left: 10px;
+  font-family: var(--font-mono); font-size: 11px; font-weight: 500;
+  color: var(--white);
+  min-width: 32px;
+  transition: width 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.bar-fill-light {
+  background: var(--dispatch-blue-light);
+}
+.bar-fill-muted {
+  background: var(--parchment-warm);
+  color: var(--ink-muted);
+}
+
+/* ── GRID ── */
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+
+/* ── RATING HISTOGRAM ── */
+.rating-dist {
+  display: flex; align-items: flex-end; gap: 6px;
+  height: 180px; padding-top: 24px;
+  margin-top: 16px;
+}
+.rating-col {
+  flex: 1; display: flex; flex-direction: column;
+  align-items: center; gap: 6px;
+}
+.rating-bar {
+  width: 100%; border-radius: 6px 6px 2px 2px;
+  background: var(--dispatch-blue);
+  transition: height 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.rating-bar-accent { background: var(--dispatch-blue-light); }
+.rating-num {
+  font-family: var(--font-mono); font-size: 11px;
+  color: var(--ink-faint);
+}
+.rating-count {
+  font-family: var(--font-mono); font-size: 11px;
+  color: var(--dispatch-blue); font-weight: 500;
+}
+
+/* ── DONUT ── */
+.donut-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 20px; margin-top: 24px;
+}
+.donut-item { text-align: center; }
+.donut-ring { width: 100px; height: 100px; margin: 0 auto 10px; position: relative; }
+.donut-ring svg { transform: rotate(-90deg); width: 100px; height: 100px; }
+.donut-ring circle { fill: none; stroke-width: 10; }
+.donut-bg { stroke: var(--parchment); }
+.donut-fill { stroke: var(--dispatch-blue); stroke-linecap: round; }
+.donut-fill-light { stroke: var(--dispatch-blue-light); }
+.donut-fill-muted { stroke: var(--parchment-dark); }
+.donut-fill-warn { stroke: var(--warning); }
+.donut-center {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px; font-weight: 800; color: var(--dispatch-blue);
+  letter-spacing: -1px;
+}
+.donut-label { font-size: 12px; color: var(--ink-muted); }
+
+/* ── INSIGHT LISTS ── */
+.insight-list { list-style: none; }
+.insight-list li {
+  padding: 14px 0;
+  border-bottom: 1px solid var(--parchment-dark);
+  font-size: 14px; line-height: 1.6;
+  display: flex; gap: 10px;
+}
+.insight-list li:last-child { border-bottom: none; }
+.insight-icon {
+  flex-shrink: 0; font-weight: 700;
+  font-family: var(--font-mono); font-size: 14px;
+}
+.icon-good { color: var(--success); }
+.icon-bad { color: var(--error); }
+
+/* ── QUOTES ── */
+.quote-grid { display: grid; grid-template-columns: 1fr; gap: 16px; margin-top: 24px; }
+.quote-card {
+  background: var(--white);
+  border: 1px solid var(--parchment-dark);
+  border-radius: 16px; padding: 24px 28px;
+  border-left: 3px solid var(--dispatch-blue);
+}
+.quote-text {
+  font-size: 15px; font-style: italic; font-weight: 400;
+  line-height: 1.6; margin-bottom: 10px;
+  color: var(--ink-soft);
+}
+.quote-author {
+  font-family: var(--font-mono); font-size: 10px;
+  letter-spacing: 1px; text-transform: uppercase;
+  color: var(--ink-faint);
+}
+
+/* ── TAGS ── */
+.tag {
+  display: inline-block; padding: 3px 10px; border-radius: 999px;
+  font-family: var(--font-mono); font-size: 10px; font-weight: 500;
+  letter-spacing: 0.5px;
+}
+.tag-blue { background: var(--dispatch-blue-10); color: var(--dispatch-blue); }
+.tag-success { background: rgba(58,158,110,0.1); color: var(--success); }
+.tag-warning { background: rgba(212,149,58,0.1); color: var(--warning); }
+.tag-error { background: rgba(199,75,75,0.1); color: var(--error); }
+.tag-muted { background: var(--parchment); color: var(--ink-muted); }
+
+/* ── DIVIDER ── */
+.section-divider { max-width: 1120px; margin: 0 auto; padding: 0 32px; }
+.section-divider hr { border: none; border-top: 1px solid var(--parchment-dark); }
+
+/* ── FOOTER ── */
+.footer {
+  padding: 48px 32px; text-align: center;
+  border-top: 1px solid var(--parchment-dark);
+}
+.footer p {
+  font-family: var(--font-mono); font-size: 11px;
+  color: var(--ink-faint); letter-spacing: 0.5px;
+}
+
+/* ── REVEAL ── */
+.reveal {
+  opacity: 0; transform: translateY(24px);
+  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.reveal-d1 { transition-delay: 0.1s; }
+.reveal-d2 { transition-delay: 0.2s; }
+.reveal-d3 { transition-delay: 0.3s; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 768px) {
+  .section { padding: 64px 20px; }
+  .hero { padding: 120px 20px 72px; }
+  .stat-strip { grid-template-columns: repeat(2, 1fr); margin-top: -32px; }
+  .stat-card:first-child { border-radius: 16px 0 0 0; }
+  .stat-card:nth-child(2) { border-radius: 0 16px 0 0; border-right: none; }
+  .stat-card:nth-child(3) { border-radius: 0 0 0 16px; border-top: none; }
+  .stat-card:last-child { border-radius: 0 0 16px 0; border-top: none; }
+  .stat-card:nth-child(2) { border-right: 1px solid var(--parchment-dark); }
+  .grid-2 { grid-template-columns: 1fr; }
+  .bar-label { width: 110px; font-size: 12px; }
+  .nav-links { gap: 12px; }
+  .nav-links a { font-size: 10px; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="nav-logo">AV AI Dispatch <span>/ Gemini Trial Report</span></div>
+    <div class="nav-links">
+      <a href="#usage">Usage</a>
+      <a href="#features">Features</a>
+      <a href="#ratings">Ratings</a>
+      <a href="#themes">Themes</a>
+      <a href="#voices">Voices</a>
+      <a href="#recs">Recs</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-badge reveal">Gemini Enterprise Trial</div>
+    <h1 class="reveal reveal-d1">50 voices.<br><em>One clear signal.</em></h1>
+    <p class="hero-sub reveal reveal-d2">Audio/Video Services surveyed its team on the Google Gemini Enterprise trial. Here's what the data says about how people used it, what worked, what didn't, and what comes next.</p>
+  </div>
+</section>
+
+<!-- STAT STRIP -->
+<div class="stat-strip reveal">
+  <div class="stat-card">
+    <div class="stat-value">50</div>
+    <div class="stat-label">Responses</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-value">84%</div>
+    <div class="stat-label">Tried Gemini</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-value">7.4</div>
+    <div class="stat-label">Avg Rating / 10</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-value">78%</div>
+    <div class="stat-label">Want to Keep It</div>
+  </div>
+</div>
+
+<!-- USAGE -->
+<section class="section" id="usage">
+  <div class="container">
+    <div class="section-label reveal">Usage Overview</div>
+    <div class="section-title reveal">How often did the 42 users <em>engage?</em></div>
+    <p class="section-desc reveal">Most users made Gemini a regular part of their workflow. 76% used it at least weekly, with 15 people using it daily.</p>
+
+    <div class="card reveal">
+      <div class="bar-chart-h">
+        <div class="bar-row">
+          <span class="bar-label">Daily</span>
+          <div class="bar-track"><div class="bar-fill" style="width:36%">15</div></div>
+        </div>
+        <div class="bar-row">
+          <span class="bar-label">Few times / week</span>
+          <div class="bar-track"><div class="bar-fill" style="width:40%">17</div></div>
+        </div>
+        <div class="bar-row">
+          <span class="bar-label">Once / week</span>
+          <div class="bar-track"><div class="bar-fill bar-fill-muted" style="width:7%">3</div></div>
+        </div>
+        <div class="bar-row">
+          <span class="bar-label">Just a few times</span>
+          <div class="bar-track"><div class="bar-fill bar-fill-muted" style="width:17%">7</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"><hr></div>
+
+<!-- FEATURES -->
+<section class="section" id="features">
+  <div class="container">
+    <div class="section-label reveal">Features Used</div>
+    <div class="section-title reveal">Image generation dominated.<br><em>NotebookLM</em> was the sleeper hit.</div>
+    <p class="section-desc reveal">Of 42 users, nearly everyone tried image generation. Chat and video generation followed. NotebookLM had fewer users but generated the most passionate advocates.</p>
+
+    <div class="card reveal">
+      <div class="bar-chart-h">
+        <div class="bar-row">
+          <span class="bar-label">Image Generation</span>
+          <div class="bar-track"><div class="bar-fill" style="width:88%">37</div></div>
+        </div>
+        <div class="bar-row">
+          <span class="bar-label">Chat</span>
+          <div class="bar-track"><div class="bar-fill" style="width:74%">31</div></div>
+        </div>
+        <div class="bar-row">
+          <span class="bar-label">File Analysis</span>
+          <div class="bar-track"><div class="bar-fill bar-fill-light" style="width:48%">20</div></div>
+        </div>
+        <div class="bar-row">
+          <span class="bar-label">Video Generation</span>
+          <div class="bar-track"><div class="bar-fill bar-fill-light" style="width:48%">20</div></div>
+        </div>
+        <div class="bar-row">
+          <span class="bar-label">Deep Research</span>
+          <div class="bar-track"><div class="bar-fill bar-fill-light" style="width:43%">18</div></div>
+        </div>
+        <div class="bar-row">
+          <span class="bar-label">NotebookLM</span>
+          <div class="bar-track"><div class="bar-fill" style="width:31%;background:var(--success);">13</div></div>
+        </div>
+        <div class="bar-row">
+          <span class="bar-label">Google Search</span>
+          <div class="bar-track"><div class="bar-fill bar-fill-muted" style="width:7%">3</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"><hr></div>
+
+<!-- RATINGS -->
+<section class="section" id="ratings">
+  <div class="container">
+    <div class="grid-2">
+      <div>
+        <div class="section-label reveal">Overall Rating</div>
+        <div class="section-title reveal">How did people <em>rate</em> Gemini?</div>
+        <p class="section-desc reveal" style="margin-bottom:16px;">Average score of 7.4 out of 10, with a strong peak at 8. Five users gave a perfect 10.</p>
+
+        <div class="card reveal">
+          <div class="rating-dist">
+            <div class="rating-col"><div class="rating-count">1</div><div class="rating-bar" style="height:10px"></div><div class="rating-num">2</div></div>
+            <div class="rating-col"><div class="rating-count">&nbsp;</div><div class="rating-bar" style="height:2px;opacity:0.2"></div><div class="rating-num">3</div></div>
+            <div class="rating-col"><div class="rating-count">1</div><div class="rating-bar" style="height:10px"></div><div class="rating-num">4</div></div>
+            <div class="rating-col"><div class="rating-count">2</div><div class="rating-bar" style="height:22px"></div><div class="rating-num">5</div></div>
+            <div class="rating-col"><div class="rating-count">7</div><div class="rating-bar bar-accent" style="height:76px"></div><div class="rating-num">6</div></div>
+            <div class="rating-col"><div class="rating-count">9</div><div class="rating-bar" style="height:98px"></div><div class="rating-num">7</div></div>
+            <div class="rating-col"><div class="rating-count">13</div><div class="rating-bar" style="height:140px"></div><div class="rating-num">8</div></div>
+            <div class="rating-col"><div class="rating-count">4</div><div class="rating-bar bar-accent" style="height:44px"></div><div class="rating-num">9</div></div>
+            <div class="rating-col"><div class="rating-count">5</div><div class="rating-bar" style="height:54px"></div><div class="rating-num">10</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="section-label reveal">Continue Using?</div>
+        <div class="section-title reveal">Would they <em>keep</em> it?</div>
+        <p class="section-desc reveal" style="margin-bottom:16px;">78% want to continue. 38% say it's become essential to their work.</p>
+
+        <div class="card reveal">
+          <div class="donut-grid">
+            <div class="donut-item">
+              <div class="donut-ring">
+                <svg viewBox="0 0 100 100"><circle class="donut-bg" cx="50" cy="50" r="40"/><circle class="donut-fill" cx="50" cy="50" r="40" stroke-dasharray="251" stroke-dashoffset="155"/></svg>
+                <div class="donut-center">38%</div>
+              </div>
+              <div class="donut-label">Essential</div>
+            </div>
+            <div class="donut-item">
+              <div class="donut-ring">
+                <svg viewBox="0 0 100 100"><circle class="donut-bg" cx="50" cy="50" r="40"/><circle class="donut-fill donut-fill-light" cx="50" cy="50" r="40" stroke-dasharray="251" stroke-dashoffset="150"/></svg>
+                <div class="donut-center" style="color:var(--dispatch-blue-light)">40%</div>
+              </div>
+              <div class="donut-label">Helpful</div>
+            </div>
+            <div class="donut-item">
+              <div class="donut-ring">
+                <svg viewBox="0 0 100 100"><circle class="donut-bg" cx="50" cy="50" r="40"/><circle class="donut-fill donut-fill-muted" cx="50" cy="50" r="40" stroke-dasharray="251" stroke-dashoffset="216"/></svg>
+                <div class="donut-center" style="color:var(--ink-faint)">14%</div>
+              </div>
+              <div class="donut-label">Maybe</div>
+            </div>
+            <div class="donut-item">
+              <div class="donut-ring">
+                <svg viewBox="0 0 100 100"><circle class="donut-bg" cx="50" cy="50" r="40"/><circle class="donut-fill donut-fill-warn" cx="50" cy="50" r="40" stroke-dasharray="251" stroke-dashoffset="233"/></svg>
+                <div class="donut-center" style="color:var(--warning)">7%</div>
+              </div>
+              <div class="donut-label">No / Indifferent</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"><hr></div>
+
+<!-- KEY THEMES -->
+<section class="section" id="themes">
+  <div class="container">
+    <div class="section-label reveal">Key Themes</div>
+    <div class="section-title reveal">What worked well. <em>Where it fell short.</em></div>
+
+    <div class="grid-2" style="margin-top:8px;">
+      <div class="card reveal" style="border-left:3px solid var(--success);">
+        <h3 style="font-size:14px;font-weight:700;color:var(--success);margin-bottom:16px;">What Worked Well</h3>
+        <ul class="insight-list">
+          <li><span class="insight-icon icon-good">+</span>NotebookLM for research &mdash; uploading RFIs and querying them with natural language was transformative for production design teams</li>
+          <li><span class="insight-icon icon-good">+</span>Image generation (Nano Banana Pro) produced high-quality, realistic reference images for character design, set concepts, and mood boards</li>
+          <li><span class="insight-icon icon-good">+</span>Chat in "thinking mode" delivered highly accurate code and debugging assistance with low hallucination</li>
+          <li><span class="insight-icon icon-good">+</span>Script analysis and document breakdowns completed in seconds versus days</li>
+          <li><span class="insight-icon icon-good">+</span>Multi-language translation of SRT files was stable and reliable, outperforming Copilot for large files</li>
+          <li><span class="insight-icon icon-good">+</span>Character design workflow cut from 5 days to 2 days (60% time savings)</li>
+        </ul>
+      </div>
+
+      <div class="card reveal reveal-d1" style="border-left:3px solid var(--error);">
+        <h3 style="font-size:14px;font-weight:700;color:var(--error);margin-bottom:16px;">What Fell Short</h3>
+        <ul class="insight-list">
+          <li><span class="insight-icon icon-bad">&minus;</span>Video generation (Veo) was unreliable &mdash; low resolution, context loss between prompts, 8-second limit, poor character consistency</li>
+          <li><span class="insight-icon icon-bad">&minus;</span>Image iteration frustrating &mdash; editing one element regenerated the entire image rather than adjusting in place</li>
+          <li><span class="insight-icon icon-bad">&minus;</span>Deep Research hallucinated specific names, page numbers, and citations that did not exist</li>
+          <li><span class="insight-icon icon-bad">&minus;</span>No integration with existing tools &mdash; no SharePoint connectors, no API access, web-only with no mobile app</li>
+          <li><span class="insight-icon icon-bad">&minus;</span>Access issues &mdash; sessions expired overnight, required specific links, some users couldn't determine if they had access</li>
+          <li><span class="insight-icon icon-bad">&minus;</span>Results sometimes inferior to Copilot, ChatGPT, or Claude for the same prompts</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"><hr></div>
+
+<!-- NON-USERS -->
+<section class="section">
+  <div class="container">
+    <div class="grid-2">
+      <div>
+        <div class="section-label reveal">The 16% Who Didn't</div>
+        <div class="section-title reveal">Why 8 people <em>didn't use</em> Gemini</div>
+        <p class="section-desc reveal">The primary barrier was simply time. Most non-users are eager to try with better support.</p>
+
+        <div class="card reveal">
+          <div class="bar-chart-h">
+            <div class="bar-row">
+              <span class="bar-label">No time</span>
+              <div class="bar-track"><div class="bar-fill" style="width:62%">5</div></div>
+            </div>
+            <div class="bar-row">
+              <span class="bar-label">Unsure how to start</span>
+              <div class="bar-track"><div class="bar-fill bar-fill-muted" style="width:25%">2</div></div>
+            </div>
+            <div class="bar-row">
+              <span class="bar-label">Access issues</span>
+              <div class="bar-track"><div class="bar-fill bar-fill-muted" style="width:12%">1</div></div>
+            </div>
+            <div class="bar-row">
+              <span class="bar-label">Prefer existing tools</span>
+              <div class="bar-track"><div class="bar-fill bar-fill-muted" style="width:12%">1</div></div>
+            </div>
+            <div class="bar-row">
+              <span class="bar-label">No perceived need</span>
+              <div class="bar-track"><div class="bar-fill bar-fill-muted" style="width:12%">1</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="section-label reveal">Willingness</div>
+        <div class="section-title reveal">Would they try <em>with support?</em></div>
+        <p class="section-desc reveal">88% of non-users said yes, definitely. Only 1 person (fabrication role) said no.</p>
+
+        <div class="card reveal">
+          <div class="donut-grid" style="margin-top:16px;">
+            <div class="donut-item">
+              <div class="donut-ring">
+                <svg viewBox="0 0 100 100"><circle class="donut-bg" cx="50" cy="50" r="40"/><circle class="donut-fill" cx="50" cy="50" r="40" stroke-dasharray="251" stroke-dashoffset="30"/></svg>
+                <div class="donut-center">88%</div>
+              </div>
+              <div class="donut-label">Yes, definitely</div>
+            </div>
+            <div class="donut-item">
+              <div class="donut-ring">
+                <svg viewBox="0 0 100 100"><circle class="donut-bg" cx="50" cy="50" r="40"/><circle class="donut-fill donut-fill-warn" cx="50" cy="50" r="40" stroke-dasharray="251" stroke-dashoffset="220"/></svg>
+                <div class="donut-center" style="color:var(--warning)">12%</div>
+              </div>
+              <div class="donut-label">No</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card reveal" style="margin-top:16px;">
+          <h3 style="font-size:14px;font-weight:700;margin-bottom:12px;">What they asked for</h3>
+          <ul class="insight-list">
+            <li><span class="insight-icon" style="color:var(--dispatch-blue);">&#8250;</span>Clearer onboarding with login instructions and video walkthrough</li>
+            <li><span class="insight-icon" style="color:var(--dispatch-blue);">&#8250;</span>Specific use-case examples tied to their actual role</li>
+            <li><span class="insight-icon" style="color:var(--dispatch-blue);">&#8250;</span>A more user-friendly interface tailored to their tasks</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"><hr></div>
+
+<!-- VOICES -->
+<section class="section" id="voices">
+  <div class="container">
+    <div class="section-label reveal">In Their Words</div>
+    <div class="section-title reveal"><em>Voices</em> from the team</div>
+
+    <div class="quote-grid">
+      <div class="quote-card reveal">
+        <div class="quote-text">"NotebookLM was exceptional. When you ask it a question about a source, it shows you where in the source it found the information. This is important because we need to be able to verify its answers before acting upon them."</div>
+        <div class="quote-author">Greg Thomas &middot; Rating: 8/10 &middot; <span class="tag tag-blue">Daily User</span></div>
+      </div>
+
+      <div class="quote-card reveal">
+        <div class="quote-text">"The most significant benefit was reducing the research and mood board creation phase from an average of 5 days to just 2 days. This represents a 60% time savings."</div>
+        <div class="quote-author">Fl&aacute;via Fukutani &middot; Rating: 8/10 &middot; <span class="tag tag-blue">Character Design</span></div>
+      </div>
+
+      <div class="quote-card reveal" style="border-left-color:var(--error);">
+        <div class="quote-text">"It hallucinated wildly. It completely invented experiences that didn't exist. It described people by name, who did not exist. When I asked for references, Gemini gave me specific page numbers in our publications, but not one of them was real."</div>
+        <div class="quote-author">Joseph Schorr &middot; Rating: 2/10 &middot; <span class="tag tag-error">Research</span></div>
+      </div>
+
+      <div class="quote-card reveal">
+        <div class="quote-text">"I absolutely love it. Its level of intelligence is astounding. It can generate whatever I want. It can do research. It helps me study. It's a game-changer for the department."</div>
+        <div class="quote-author">Chris Kania &middot; Rating: 10/10 &middot; <span class="tag tag-success">Essential</span></div>
+      </div>
+
+      <div class="quote-card reveal">
+        <div class="quote-text">"Tasks that would normally take several days were completed in just a few minutes. Copilot had more limitations when translating long SRT files into multiple languages, whereas Gemini proved to be relatively stable and reliable."</div>
+        <div class="quote-author">Kim, Jung-hoon (Jonathan) &middot; Rating: 9/10 &middot; <span class="tag tag-blue">Production</span></div>
+      </div>
+
+      <div class="quote-card reveal" style="border-left-color:var(--warning);">
+        <div class="quote-text">"We are told over and over that specific tools are not implemented so that we work faster, but that is sort of how these tools are being rolled out. Tools like this become ammo for those who seem to think we can do things even faster without addressing the underlying reason for the stress."</div>
+        <div class="quote-author">Vaughn Laube &middot; Rating: 8/10 &middot; <span class="tag tag-warning">Perspective</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"><hr></div>
+
+<!-- RECOMMENDATIONS -->
+<section class="section" id="recs">
+  <div class="container">
+    <div class="section-label reveal">Recommendations</div>
+    <div class="section-title reveal">What the <em>data suggests</em></div>
+
+    <div class="grid-2" style="margin-top:8px;">
+      <div class="card reveal" style="border-left:3px solid var(--dispatch-blue);">
+        <h3 style="font-size:14px;font-weight:700;color:var(--dispatch-blue);margin-bottom:16px;">Keep and Expand</h3>
+        <ul class="insight-list">
+          <li><span class="insight-icon" style="color:var(--dispatch-blue);">1</span><strong>NotebookLM</strong> &mdash; The standout feature. Teams want to connect it to SharePoint and RFI libraries for organization-wide knowledge access.</li>
+          <li><span class="insight-icon" style="color:var(--dispatch-blue);">2</span><strong>Image Generation</strong> &mdash; Already integrated into daily workflows for character design, set concepts, and mood boards. Higher resolution output is the top request.</li>
+          <li><span class="insight-icon" style="color:var(--dispatch-blue);">3</span><strong>Chat / Thinking Mode</strong> &mdash; Valued for coding, script analysis, and document breakdowns. Users want API access and connector support.</li>
+        </ul>
+      </div>
+
+      <div class="card reveal reveal-d1" style="border-left:3px solid var(--warning);">
+        <h3 style="font-size:14px;font-weight:700;color:var(--warning);margin-bottom:16px;">Address Before Scaling</h3>
+        <ul class="insight-list">
+          <li><span class="insight-icon" style="color:var(--warning);">1</span><strong>Video generation</strong> &mdash; Not production-ready. Users recommend evaluating alternatives (Kling, Seedance 2.0) alongside Veo.</li>
+          <li><span class="insight-icon" style="color:var(--warning);">2</span><strong>Onboarding and access</strong> &mdash; Simplify login flow, provide role-specific use cases, and create video tutorials.</li>
+          <li><span class="insight-icon" style="color:var(--warning);">3</span><strong>Integration gaps</strong> &mdash; No SharePoint, no API, no mobile app. These limit adoption for daily use.</li>
+          <li><span class="insight-icon" style="color:var(--warning);">4</span><strong>Hallucination risk</strong> &mdash; Provide training on verification practices, especially for research-heavy roles.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <p>Audio/Video Services &middot; AI R&D Group &middot; Gemini Enterprise Trial &middot; 2026</p>
+  <p style="margin-top:4px;">Plus Jakarta Sans &middot; JetBrains Mono &middot; Dispatch Blue #4a6da7 &middot; Parchment #f5f0e8</p>
+</footer>
+
+<script>
+const observer = new IntersectionObserver(
+  (entries) => entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      observer.unobserve(e.target);
+    }
+  }),
+  { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
+);
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
